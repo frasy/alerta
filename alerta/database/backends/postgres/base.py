@@ -641,7 +641,7 @@ class Backend(Database):
         # Extend information from given environments
         query = query or Query()
 
-        environments_filter = f"""AND environment in ({', '.join(f"'{e.environment}'" for e in environments)})""" if environments else ""
+        environments_filter = f"""AND environment in ({', '.join(f"'{e.environment}'" for e in environments)})""" if environments else ''
         select = f"""
             SELECT environment, severity, status, count(1) FROM alerts
             WHERE {query.where} {environments_filter}

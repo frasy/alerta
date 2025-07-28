@@ -844,7 +844,7 @@ class Backend(Database):
     def get_environments_count(self, query=None):
         query = query or Query()
         where = query.where
-        distinct_values = self.get_db().alerts.distinct("environment", where)
+        distinct_values = self.get_db().alerts.distinct('environment', where)
         count = len(distinct_values) if distinct_values else 0
         return count
 
