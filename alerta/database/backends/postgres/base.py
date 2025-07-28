@@ -668,7 +668,7 @@ class Backend(Database):
                 'statusCounts': dict(status_count[e.environment]),
                 'count': total_count[e.environment]
             } for e in environments]
-    
+
     def get_environments_count(self, query=None):
         query = query or Query()
         select = """

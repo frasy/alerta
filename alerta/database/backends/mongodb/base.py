@@ -804,11 +804,11 @@ class Backend(Database):
             return [
                 {'$match': query.where},
                 {'$project': {'environment': 1, group_by: 1}},
-                {'$group':
-                 {
-                     '_id': {'environment': '$environment', group_by: '$' + group_by},
-                     'count': {'$sum': 1}
-                 }
+                {
+                    '$group': {
+                        '_id': {'environment': '$environment', group_by: '$' + group_by},
+                        'count': {'$sum': 1}
+                    }
                 }
             ]
 
@@ -823,7 +823,8 @@ class Backend(Database):
             status_count[r['_id']['environment']].append((r['_id']['status'], r['count']))
 
         pipeline_different_envs = [
-            {'$group':{
+            {
+                '$group':{
                     '_id': '$environment',
                 }
             },
@@ -839,7 +840,7 @@ class Backend(Database):
                 'statusCounts': dict(status_count[env['_id']]),
                 'count': sum(t[1] for t in severity_count[env['_id']])
             } for env in environments]
-    
+
     def get_environments_count(self, query=None):
         query = query or Query()
         where = query.where
